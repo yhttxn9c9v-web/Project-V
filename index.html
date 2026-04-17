@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project V – Boutique</title>
+
+  <!-- Police Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Feuille de style principale -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+
+
+  <!-- HEADER -->
+  <header>
+    <h1 class="logo">Project <span>V</span></h1>
+    <nav>
+      <a href="index.html" class="active">Accueil</a>
+      <a href="#" id="btn-panier">Panier</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h2>Bienvenue sur <span>Project V</span></h2>
+    <p>Découvrez notre collection exclusive au design épuré et unique.</p>
+    <a href="#products" class="cta">Voir les produits</a>
+  </section>
+
+  <!-- PRODUITS -->
+  
+
+
+    <!-- BARRE DE RECHERCHE STYLÉE -->
+    <div class="search-container">
+      <input type="text" class="search-input" id="searchInput" placeholder="Rechercher un produit…" autocomplete="off">
+      <button class="search-btn" id="searchBtn" aria-label="Lancer la recherche">🔍</button>
+      <ul id="suggestions" class="suggestions-list"></ul>
+    </div>
+
+    <div class="products">
+
+
+
+
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Project V – Tous droits réservés</p>
+  </footer>
+
+  <!-- OVERLAY PANIER -->
+  <div id="overlay-bg" class="overlay-bg"></div>
+  <div id="cart" class="cart-overlay">
+    <div class="cart-header">
+      Votre Panier
+      <button id="close-cart" class="close-cart">X</button>
+    </div>
+    <div class="cart-content" id="cart-items">
+      <p>Votre panier est vide pour l’instant.</p>
+    </div>
+    <div class="cart-total" id="cart-total">Total : 0€</div>
+    <button class="checkout-btn">Passer à la caisse</button>
+  </div>
+
+  <!-- Animation wrapper -->
+  <div class="animation-wrapper">
+    <!-- Cercle jaune (plus grand) -->
+    <svg class="circle circle-yellow" width="220" height="220" viewBox="0 0 220 220">
+      <circle cx="110" cy="110" r="100" fill="#fff" stroke="#f1c40f" stroke-width="6" stroke-dasharray="628.32" stroke-dashoffset="628.32"/>
+    </svg>
+
+    <!-- Cercle bleu (plus petit) -->
+    <svg class="circle circle-blue" width="200" height="200" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="90" fill="none" stroke="#3498db" stroke-width="6" stroke-dasharray="565.48" stroke-dashoffset="565.48"/>
+    </svg>
+
+    <!-- Texte “Project” et “V” -->
+    <div class="logo-text">
+      <h1 class="text-project">Project</h1>
+      <span class="letter-v">V</span>
+    </div>
+  </div>
+
+  <main class="page-content">
+    <!-- Ton contenu ici -->
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const logo = document.querySelector('.logo');
+      logo.addEventListener('click', () => {
+        logo.classList.add('rotate');
+        setTimeout(() => {
+          logo.classList.remove('rotate');
+        }, 1000);
+      });
+    });
+  </script>
+
+  <!-- Bouton d’assistance -->
+  <button id="chat-button">💬</button>
+
+  <!-- Fenêtre de chat -->
+  <div id="chat-box">
+    <div id="chat-header">Assistance Project V</div>
+    <div id="chat-messages">
+      <p><em>Bonjour ! Besoin d’aide ?</em></p>
+    </div>
+    <div id="chat-input">
+      <input type="text" id="message" placeholder="Écrire un message...">
+      <button id="send-btn">➤</button>
+    </div>
+  </div>
+
+  <style>
+    /* --- BOUTON FLOTTANT --- */
+    #chat-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 26px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      z-index: 9999;
+      transition: transform 0.2s, background 0.3s;
+    }
+    #chat-button:hover {
+      background-color: #1f6bb8;
+      transform: scale(1.1);
+    }
+    /* --- FENÊTRE DE CHAT --- */
+    #chat-box {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 320px;
+      height: 420px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      font-family: 'Poppins', sans-serif;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 9998;
+    }
+    #chat-box.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    #chat-header {
+      background: #3498db;
+      color: white;
+      padding: 12px;
+      font-weight: bold;
+      text-align: center;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    #chat-messages {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+      font-size: 14px;
+      background: #f9f9f9;
+    }
+    #chat-input {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+    #chat-input input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      font-size: 14px;
+      outline: none;
+      background: #fff;
+    }
+    #chat-input button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #chat-messages p {
+      margin: 6px 0;
+    }
+  </style>
+
+  <script>
+    const chatButton = document.getElementById('chat-button');
+    const chatBox = document.getElementById('chat-box');
+    const chatMessages = document.getElementById('chat-messages');
+    const messageInput = document.getElementById('message');
+    const sendBtn = document.getElementById('send-btn');
+
+    // Toggle chat box
+    chatButton.addEventListener('click', () => {
+      chatBox.classList.toggle('open');
+    });
+
+    // Send message
+    sendBtn.addEventListener('click', sendMessage);
+    messageInput.addEventListener('keypress', e => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    function sendMessage() {
+      const msg = messageInput.value.trim();
+      if (msg !== "") {
+        const userMsg = document.createElement("p");
+        userMsg.textContent = "Vous : " + msg;
+        chatMessages.appendChild(userMsg);
+        messageInput.value = "";
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        setTimeout(() => {
+          const botMsg = document.createElement("p");
+          botMsg.innerHTML = "<strong>Assistance :</strong> Merci pour votre message ! Nous reviendrons vers vous sous peu.";
+          chatMessages.appendChild(botMsg);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 800);
+      }
+    }
+  </script>
+
+  <!-- Script principal -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,937 @@
+/* ========== FONTS & RESET ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f9f9f9;
+  line-height: 1.5;
+}
+
+/* ========== HEADER ========== */
+header {
+  background: #0044cc;
+  color: #fff;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo span {
+  color: #ffcc00;
+}
+nav a {
+  color: #fff;
+  margin-left: 15px;
+  text-decoration: none;
+  font-weight: 600;
+}
+nav a.active {
+  border-bottom: 2px solid #ffcc00;
+}
+
+/* ========== HERO ========== */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(120deg, #0044cc, #003399);
+  color: #fff;
+}
+.hero span {
+  color: #ffcc00;
+}
+.cta {
+  display: inline-block;
+  margin-top: 20px;
+  background: #ffcc00;
+  color: #003366;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+
+
+/* Animation fade-in */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== FOOTER ========== */
+footer {
+  background: #0044cc;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  margin-top: 50px;
+}
+
+/* ========== OVERLAY PANIER ========== */
+.overlay-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 999;
+}
+.overlay-bg.active {
+  opacity: 1;
+  visibility: visible;
+}
+.cart-overlay {
+  position: fixed;
+  top: 0; right: -400px;
+  width: 320px; height: 100%;
+  background: #fff;
+  box-shadow: -3px 0 10px rgba(0, 0, 0, 0.3);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.cart-overlay.active {
+  right: 0;
+}
+.cart-header {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.close-cart {
+  background: #ff3333;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.cart-content {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+}
+.remove-item {
+  color: red;
+  cursor: pointer;
+}
+.cart-total {
+  font-weight: bold;
+  text-align: right;
+  margin-top: 10px;
+}
+.checkout-btn {
+  background: #0044cc;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+
+/* === Fly-to-cart animation === */
+.fly-img {
+  position: absolute;  
+  z-index: 2000;  
+  pointer-events: none;
+  /* Les largeur/hauteur sont définies en inline par le JS */
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity   0.8s;
+}
+
+
+
+/* Titres & boutons avec marges cohérentes */
+.grid-item h4,
+.grid-item p,
+.grid-item button {
+  margin: 6px 0;
+}
+
+/* Restaure l’animation “fly to cart” */
+.fly-img {
+  position: absolute;
+  z-index: 2000;
+  pointer-events: none;
+  transition: transform 0.8s cubic-bezier(0.4,0,0.2,1),
+              opacity  0.8s;
+}
+
+
+
+/* --------- Wrapper plein écran --------- */
+.animation-wrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  z-index: 10;
+  animation:
+    fadeWrapperBg 0.5s ease-out 1.5s forwards,  /* passe à transparent */
+    hideWrapper   0.5s ease-out 3.2s forwards;  /* disparition finale */
+}
+
+
+/* --------- Cercles centrés --------- */
+.circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* --------- Texte au centre du cercle --------- */
+.logo-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 20;
+}
+
+.text-project,
+.letter-v {
+  display: block;
+  margin: 0;
+  opacity: 0;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
+
+.text-project {
+  color: #000;
+  font-size: 1.8rem;
+  animation: fadeIn 1s ease-out 1.5s forwards;
+}
+
+.letter-v {
+  color: #f1c40f;
+  font-size: 2.2rem;
+  animation: fadeIn 0.5s ease-out 2.7s forwards;
+}
+
+/* --------- Animations keyframes --------- */
+@keyframes drawYellow   { to { stroke-dashoffset: 0; } }
+@keyframes drawBlue     { to { stroke-dashoffset: 0; } }
+@keyframes blurBg       { to { filter: blur(8px); } }
+@keyframes fadeIn       { to { opacity: 1; } }
+@keyframes hideWrapper  { to { opacity: 0; visibility: hidden; } }
+
+/* --------- Application des animations --------- */
+.circle-yellow circle {
+  animation: drawYellow 1s ease-out forwards;
+}
+
+.circle-blue circle {
+  animation: drawBlue 1s ease-out 1.5s forwards;
+}
+ .page-content {
+  filter: blur(0);
+  animation: blurBg 0.5s ease-out 1.5s forwards;
+}
+
+@keyframes blurBg {
+  to { filter: blur(8px); }
+}
+
+
+
+@keyframes fadeWrapperBg {
+  from { background-color: #fff; }
+  to   { background-color: rgba(255, 255, 255, 0); }
+}
+
+
+/* mode clair par défaut */
+body {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* mode sombre */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* style du logo cliquable */
+.logo {
+  display: inline-block;
+  padding: 0.5em 1em;
+  font-size: 1.2em;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* optionnel : changer l’apparence du logo en mode sombre */
+body.dark-mode .logo {
+  color: #dddddd;
+}
+
+
+
+/* ——— Transition douce du mode clair/sombre ——— */
+body {
+  transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+/* ——— Animation du logo en bascule de mode ——— */
+.logo {
+  display: inline-block;
+  transition: transform 0.6s ease;
+}
+
+body.dark-mode .logo {
+  transform: rotate(360deg);
+}
+
+
+/* logo blanc en mode clair */
+.logo {
+  color: #ffffff;
+  transition: color 0.6s ease;
+}
+
+/* logo noir en mode sombre */
+body.dark-mode .logo {
+  color: #000000;
+}
+
+
+/* Texte des produits en mode sombre */
+body.dark-mode .grid-item h4,
+body.dark-mode .grid-item p,
+body.dark-mode .main-product,
+body.dark-mode .main-product .arrow {
+  color: #ffffff;
+}
+
+/* Texte du panier en mode sombre */
+body.dark-mode .cart-overlay,
+body.dark-mode .cart-item,
+body.dark-mode .cart-total,
+body.dark-mode .checkout-btn,
+body.dark-mode .cart-header {
+  color: #ffffff;
+  background-color: #1e1e1e;
+}
+
+/* Fond des produits en mode sombre */
+body.dark-mode .grid-item {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+}
+
+/* Boutons en mode sombre */
+body.dark-mode button {
+  background-color: #444;
+  color: #ffffff;
+  border: none;
+}
+
+
+/* Article principal en mode sombre */
+body.dark-mode .main-product {
+  background-color: #1c1c1c; /* fond sombre */
+  color: #ffffff; /* texte blanc */
+}
+
+/* Flèches en bleu foncé en mode sombre */
+body.dark-mode .main-product .arrow {
+  color: #003366; /* bleu foncé */
+}
+
+
+
+/* Contour bleu foncé au survol en mode sombre */
+body.dark-mode .grid-item:hover {
+  border: 2px solid #003366; /* bleu foncé */
+  box-shadow: 0 0 10px #003366; /* effet lumineux subtil */
+}
+
+
+
+@keyframes rotateOnce {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.logo.rotate {
+  animation: rotateOnce 1s ease-out;
+}
+
+
+/* Centre la search-container dans le main #products */
+#products {
+  position: relative;
+}
+
+/* Affiche la zone de recherche en ligne et la centre */
+.search-container {
+  display: flex;
+  justify-content: center;   /* centre horizontalement */
+  margin: 40px auto;         /* espace haut/bas et centrage auto */
+  width: 100%;
+  max-width: 600px;          /* limite la largeur maxi si besoin */
+}
+
+/* Ajuste la taille du champ pour être fluide */
+.search-container input {
+  flex: 1;
+  max-width: 100%;           
+}
+
+/* Bouton collé à droite */
+.search-container button {
+  margin-left: -1px;         /* supprime le petit interstice */
+}
+
+
+/* style.css */
+/* … tes styles existants … */
+
+/* ============================= */
+/* Styles pour la barre de recherche */
+/* ============================= */
+
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 4px;
+  background: #ffffff;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #333;
+  background: transparent;
+  border-radius: 30px 0 0 30px;
+  outline: none;
+}
+
+.search-btn {
+  border: none;
+  background: #0044cc;
+  color: #ffffff;
+  padding: 12px 20px;
+  font-size: 18px;
+  border-radius: 0 30px 30px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-btn:hover {
+  background: #003399;
+}
+
+.suggestions-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 8px);
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 0 0 6px 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 180px;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.suggestions-list li {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.suggestions-list li:hover {
+  background: #f0f0f0;
+}
+
+
+/* Conteneur circulaire réduit */
+.chat-icon {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  width: 45px;
+  height: 45px;
+  background-color: #2979FF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* Bul­le jaune avec flèche */
+.chat-icon .bubble {
+  position: absolute;
+  left: -75px;       /* décale la bulle à gauche */
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #FFEB3B;
+  padding: 3px 6px;
+  font-size: 8px;
+  font-weight: bold;
+  color: #000;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.chat-icon .bubble::after {
+  content: "";
+  position: absolute;
+  right: -6px;       /* place la pointe contre le cercle */
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 6px;
+  height: 6px;
+  background-color: #FFEB3B;
+}
+
+/* Points d’interrogation/exclamation */
+.chat-icon .marks {
+  position: absolute;
+  font-size: 10px;
+  font-weight: bold;
+  color: #000;
+  width: 100%;
+  text-align: center;
+}
+.chat-icon .marks.top {
+  top: 4px;
+}
+.chat-icon .marks.bottom {
+  bottom: 4px;
+}
+
+
+
+.chat-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: box-shadow 0.2s ease;
+}
+
+.chat-icon:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.chat-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+}
+
+
+
+
+
+.chat-panel {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 300px;
+  max-height: 400px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.chat-header {
+  background: #2979FF;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-body {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.chat-footer {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+
+.chat-footer input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+}
+
+.chat-footer button {
+  padding: 8px 12px;
+  background: #2979FF;
+  color: #fff;
+  border: none;
+}
+
+
+.chat-icon {
+  cursor: pointer;
+  /* pointer-events: auto; par défaut c'est auto, sauf si tu l'as override ailleurs */
+}
+
+/* Masque gris */
+.overlay-bg {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+  z-index: 900;
+}
+
+/* Overlay (fond sombre, centré) */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Classe pour afficher l’overlay */
+.overlay.active {
+  display: flex;
+}
+
+/* Conteneur du contenu de l’overlay */
+.overlay-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Style du bouton “floating-btn” */
+.floating-btn {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+
+
+
+
+/* === Welcome Overlay === */
+#welcome-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#welcome-overlay.hidden {
+  display: none;
+}
+
+#welcome-overlay .overlay-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Bouton identique à votre floating-btn */
+.floating-btn {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+
+
+/* style.css */
+/* … tes styles existants … */
+
+/* ============================= */
+/* Styles pour la barre de recherche */
+/* ============================= */
+
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 4px;
+  background: #ffffff;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #333;
+  background: transparent;
+  border-radius: 30px 0 0 30px;
+  outline: none;
+}
+
+.search-btn {
+  border: none;
+  background: #0044cc;
+  color: #ffffff;
+  padding: 12px 20px;
+  font-size: 18px;
+  border-radius: 0 30px 30px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-btn:hover {
+  background: #003399;
+}
+
+.suggestions-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 8px);
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 0 0 6px 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 180px;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.suggestions-list li {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.suggestions-list li:hover {
+  background: #f0f0f0;
+}
+
+
+
+.ligne-produits {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  gap: 2vw; /* Ajoute de l’espace entre les carreaux */
+  margin: 0;
+  padding: 0;
+}
+
+.carreau {
+  width: 30vw;
+  height: 30vw;
+  box-sizing: border-box;
+  background-color: #fff;
+  border: none; /* Supprime la bordure grise */
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Optionnel : ombre douce */
+}
+
+.carreau:hover {
+  transform: scale(1.02);
+}
+
+.carreau img {
+  width: 100%;
+  height: auto;
+  max-height: 60%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.carreau h4 {
+  font-size: 1.2rem;
+  margin: 8px 0 4px;
+}
+
+.carreau p {
+  font-size: 1rem;
+  margin: 4px 0;
+}
+
+.carreau button {
+  background-color: #ff9900;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.carreau button:hover {
+  background-color: #e68a00;
+}
+
+
+.carreau {
+  width: 30vw;
+  height: 29vw;
+  box-sizing: border-box;
+  background-color: #fff;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  transition: border 0.3s ease, transform 0.3s ease;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.carreau:hover {
+  border: 2px solid #ff9900;
+  transform: scale(1.02);
+}
+
+
+
+.carreau {
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.carreau {
+  margin: 10px; /* espace autour de chaque carreau */
+}
+
+
+@keyframes flyToCard {
+  0% {
+    transform: scale(1) translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.3) translate(300px, -300px); /* adapte selon ta cible */
+    opacity: 0;
+  }
+}
+
+.carreau.fly {
+  animation: flyToCard 0.6s ease-in-out forwards;
+  z-index: 1000;
+}
